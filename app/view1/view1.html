@@ -1,0 +1,21 @@
+
+<div class="container">
+  <h2>Cards Columns</h2>
+  <p>The .card-columns class creates a masonry-like grid of cards. The layout will automatically adjust as you insert more cards.</p>
+  <p><strong>Note:</strong> The cards are displayed vertically on small screens (less than 576px):</p>
+  <div class="card-columns">
+    <div ng-repeat="x in topics.topics" class="card ">
+        <div class="card-header font-weight-bold bg-warning text-uppercase">{{x.name}}</div>  
+        <div class="card-body  text-center">
+          <p class="card-text lead">{{x.verses[id].word}}</p>
+        </div>
+        <div class="card-footer bg-danger">{{id + " of " + x.verses.length}}
+            <button ng-click="refreshData()">Refresh</button>
+          <div class="progress">
+    <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:40%"></div>
+  </div>
+        </div>
+        
+    </div>
+  </div>
+</div>
