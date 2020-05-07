@@ -13,7 +13,7 @@
         </div>
         <div class="card-footer bg-danger">{{id%x.verses.length+ " of " + x.verses.length}}
           <div class="progress">
-    <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:40%"></div>
+    <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{((id%x.verses.length+1)/x.verses.length)*100+'%'}}"></div>
   </div>
         </div>
         
