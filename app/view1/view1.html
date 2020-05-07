@@ -1,20 +1,25 @@
 
 <div class="container">
-  <h2>Cards Columns</h2>
-  <p>The .card-columns class creates a masonry-like grid of cards. The layout will automatically adjust as you insert more cards.</p>
-  <p><strong>Note:</strong> The cards are displayed vertically on small screens (less than 576px):</p>
+  <h2>Verse Cards</h2>
+  <p>Cards changes every minute. Refresh browser to display the new verse. </p>
+  <p><strong>Note:</strong> Cards changes every minute. Refresh browser to display the new verse:</p>
   <div class="card-columns">
     <div ng-repeat="x in topics.topics" class="card ">
-        <div class="card-header font-weight-bold bg-warning text-uppercase">{{x.name}}</div>  
+        <div class="card-header font-weight-bold bg-warning text-uppercase"><a href="#!/view2" class="card-link">{{x.name}}</a></div>  
         <div class="card-body  text-center">
           <p class="card-text lead">{{x.verses[id%x.verses.length].word}}</p>
-          <p class="card-text">{{x.verses[id%x.verses.length].book + " "+ x.verses[id%x.verses.length].chapter + ":"+x.verses[id%x.verses.length].verse}}</p>
+          <a href="#" class="card-link">{{x.verses[id%x.verses.length].book + " "+ x.verses[id%x.verses.length].chapter + ":"+x.verses[id%x.verses.length].verse}}</a>
 
         </div>
-        <div class="card-footer bg-danger">{{id%x.verses.length+ " of " + x.verses.length}}
-          <div class="progress">
-    <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{((id%x.verses.length+1)/x.verses.length)*100+'%'}}"></div>
-  </div>
+        <div class="card-footer text-center bg-danger">
+            <span>{{id%x.verses.length+ " of " + x.verses.length}}</span>  <span>    {{}}</span>
+<div class="progress">
+               <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{((theTime | date : 'ss')/60)*100+'%'}}"></div>
+            </div>
+            <br>
+            <div class="progress">
+               <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{((id%x.verses.length+1)/x.verses.length)*100+'%'}}"></div>
+            </div>
         </div>
         
     </div>

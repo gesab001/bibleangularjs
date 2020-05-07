@@ -1,5 +1,4 @@
 <p>This is the partial for view 2.</p>
-<p>
-  Showing of 'interpolate' filter:
-  {{ 'Current version is v%VERSION%.' | interpolate }}
+<p ng-repeat="x in bibles">
+  {{x.name}}
 </p>

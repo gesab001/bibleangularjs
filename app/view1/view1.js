@@ -10,7 +10,7 @@ app.config(['$routeProvider', function($routeProvider) {
   });
 }])
 
-.controller('View1Ctrl', function($scope, $http) {
+.controller('View1Ctrl', function($scope, $http, $interval) {
     $scope.firstName = "John";
     $http.get("view1/topics.json")
     .then(function(response) {
@@ -18,6 +18,10 @@ app.config(['$routeProvider', function($routeProvider) {
       $scope.topics = searchTopic(response)
       $scope.id = getCurrentID()
     });
+    $scope.theTime = new Date().toLocaleTimeString();
+    $interval(function () {
+        $scope.theTime = new Date();
+    }, 1000);
 
 }); 
 
