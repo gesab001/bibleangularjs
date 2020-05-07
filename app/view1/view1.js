@@ -25,7 +25,14 @@ function searchTopic(response){
     return response.data;
     
 }
+
 function getCurrentID(){
-    return 1;
+
+    var date1 = new Date();
+    var date2 = new Date(2018, 5, 23, 14, 45, 0, 0);
+    var difference = date1.getTime() - date2.getTime();
+    var minutesDifference = Math.floor(difference/1000/60);
+    var currentID=minutesDifference;
+    return currentID;
 }
 

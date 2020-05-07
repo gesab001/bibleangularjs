@@ -7,10 +7,11 @@
     <div ng-repeat="x in topics.topics" class="card ">
         <div class="card-header font-weight-bold bg-warning text-uppercase">{{x.name}}</div>  
         <div class="card-body  text-center">
-          <p class="card-text lead">{{x.verses[id].word}}</p>
+          <p class="card-text lead">{{x.verses[id%x.verses.length].word}}</p>
+          <p class="card-text">{{x.verses[id%x.verses.length].book + " "+ x.verses[id%x.verses.length].chapter + ":"+x.verses[id%x.verses.length].verse}}</p>
+
         </div>
-        <div class="card-footer bg-danger">{{id + " of " + x.verses.length}}
-            <button ng-click="refreshData()">Refresh</button>
+        <div class="card-footer bg-danger">{{id%x.verses.length+ " of " + x.verses.length}}
           <div class="progress">
     <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:40%"></div>
   </div>
