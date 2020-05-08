@@ -4,7 +4,7 @@
   <p>Cards changes every minute. Refresh browser to display the new verse. </p>
   <p><strong>Note:</strong> Cards changes every minute. Refresh browser to display the new verse:</p>
   <div class="card-columns">
-    <div ng-repeat="x in topics.topics" class="card ">
+    <div ng-repeat="x in topics.topics" ng-model="id" class="card ">
         <div class="card-header font-weight-bold bg-warning text-uppercase"><a href="#!/view2" class="card-link">{{x.name}}</a></div>  
         <div class="card-body  text-center">
           <p class="card-text lead">{{x.verses[id%x.verses.length].word}}</p>

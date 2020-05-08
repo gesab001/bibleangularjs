@@ -21,6 +21,7 @@ app.config(['$routeProvider', function($routeProvider) {
     $scope.theTime = new Date().toLocaleTimeString();
     $interval(function () {
         $scope.theTime = new Date();
+        $scope.id = getCurrentID()
     }, 1000);
 
 }); 
