@@ -4,17 +4,17 @@
   <p>Cards changes every minute. Refresh browser to display the new verse. </p>
   <p><strong>Note:</strong> Cards changes every minute. Refresh browser to display the new verse:</p>
   <div class="card-columns">
-    <div ng-repeat="x in topics.topics" ng-model="id" class="card ">
+    <div ng-repeat="x in topics.topics" ng-model="id" class="card " ng-init="outerIndex=$index">
         <div class="card-header font-weight-bold bg-warning text-uppercase">
             <a href="#!/view2" class="card-link">{{x.name}}</a>
-            <select ng-model="selectedVersion" ng-change="changeVersion(selectedVersion, x.verses[id%x.verses.length].book, x.verses[id%x.verses.length].chapter, x.verses[id%x.verses.length].verse, id%x.verses.length, $index)">
+            <select ng-model="selectedVersion" ng-change="changeVersion(selectedVersion, x.verses[id%x.verses.length].book, x.verses[id%x.verses.length].chapter, x.verses[id%x.verses.length].verse, id%x.verses.length, outerIndex)">
                 <option ng-repeat="x in versions.choices" value="{{x.code}}">
                         {{ x.version }}
                   </option>
             </select>
         </div>  
         <div class="card-body  text-center">
-          <p class="card-text lead">{{x.verses[id%x.verses.length].word}}</p>
+          <p class="card-text lead" ng-model="word">{{x.verses[id%x.verses.length].word}}</p>
           <a href="#" class="card-link">{{x.verses[id%x.verses.length].book + " "+ x.verses[id%x.verses.length].chapter + ":"+x.verses[id%x.verses.length].verse}}</a>
 
         </div>
