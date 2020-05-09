@@ -11,9 +11,12 @@ app.config(['$routeProvider', function($routeProvider) {
 }])
 
 .controller('View2Ctrl', function($scope, $http) {
-    $http.defaults.headers.common["api-key"] = "80e4d9935ef1778c43ecd7801bd4ae4c";
-    $http.get("https://api.scripture.api.bible/v1/bibles")
+    //$http.defaults.headers.common["api-key"] = "80e4d9935ef1778c43ecd7801bd4ae4c";
+    $http.get("topics.json")
+
     .then(function(response) {
-      $scope.bibles = response.data.data;
+      $scope.bibles = response.data;
+    }, function(response) {
+            $scope.bibles = response.data || 'Request failed';
     });
 }); 
