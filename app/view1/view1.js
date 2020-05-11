@@ -12,13 +12,21 @@ app.config(['$routeProvider', function($routeProvider) {
 
 .controller('View1Ctrl', function($scope, $http, $interval, $filter) {
     $scope.topics = "";
-    $scope.versions = {"choices":[{"version": "KJV", "code": "kjv"}, {"version": "Cebuano", "code": "Bible_Cebuano"}, {"version": "Basic English", "code": "basicenglish"}, {"version": "Maori", "code": "maori"}, {"version": "Korean", "code": "korean"}, {"version": "Hebrew", "code": "hebrew"}, {"version": "Greek", "code": "textusreceptus"}, {"version": "Tagalog", "code":"tagalog"}]};
+    $scope.versions = {"choices":[]};
+    $scope.versionslist = [];
+    $scope.versionoptions = {};
     $scope.selectedVersion = "kjv";
 
     $http.get("view1/topics2.json")
     .then(function(response) {
       $scope.topics = response.data;
       $scope.topiclist = response.data.topiclist;
+      $scope.versionslist = response.data.versionslist;
+      $scope.versionoptions = response.data.versionoptions;
+      for (var v of $scope.versionslist){
+          
+          $scope.versions.choices.push({"version": $scope.versionoptions[v], "code": v});
+      }
       $scope.id = getCurrentID();
       
     });
