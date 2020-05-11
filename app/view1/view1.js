@@ -70,10 +70,11 @@ app.config(['$routeProvider', function($routeProvider) {
 //                $scope.word = response.data || 'Request failed';
 //            });
 //        }
-//        
+//        selectedVersion+topic+topics.topics[name].verses[id%topics.topics[name].verses.length].book+topics.topics[name].verses[id%topics.topics[name].verses.length].chapter+topics.topics[name].verses[id%topics.topics[name].verses.length].verse+id%topics.topics[name].verses.length+id%topics.topics[name].verses.length}}</p>
+
 //      };
-      $scope.changeVerse = function(selectedVersion, cardName, book, chapter, verse, id){
-        $scope.word = $scope.topicsjson[cardName][id].word[selectedVersion];
+      $scope.changeVerse = function(selectedVersion, cardName, book, chapter, verse, verseid){
+        $scope.word = $scope.topics.topics[cardName].verses[verseid].word[selectedVersion];
 //        if (selectedVersion!="kjv"){
 //            $scope.word = "its not kjv";
 //            $scope.bookNumber = $scope.booklist[book]; 

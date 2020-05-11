@@ -1,7 +1,7 @@
 
 <div class="container">
     <div class="card-columns">
-        <div ng-repeat="name in topiclist" class="card" ng-model="id" ng-init="topic=name; totalverses=topics.topics[name].verses.length; book=topics.topics[name].verses[verseID].book" >
+        <div ng-repeat="name in topiclist" class="card" ng-model="id" ng-init="topic=name; totalverses=topics.topics[name].verses.length" >
             <div  class="card-header font-weight-bold bg-warning text-uppercase">
                 <a href="#!/view2" class="card-link">{{name}}</a>
                 <select  ng-model="selectedVersion" ng-change="">
@@ -12,7 +12,7 @@
             </div>
             <div class="card-body  text-center" >
                 
-                <p class="card-text lead" ng-model="word">{{topic+selectedVersion+book+id%topics.topics[name].verses.length}}</p>
+                <p class="card-text lead" ng-model="word">{{changeVerse(selectedVersion,topic,topics.topics[name].verses[id%topics.topics[name].verses.length].book,topics.topics[name].verses[id%topics.topics[name].verses.length].chapter,topics.topics[name].verses[id%topics.topics[name].verses.length].verse,id%topics.topics[name].verses.length)}}</p>
             </div>
             <div class="card-footer text-center bg-danger">
                 <p>{{(id%topics.topics[name].verses.length)+ " of " + totalverses}}</p>
