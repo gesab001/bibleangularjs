@@ -12,7 +12,9 @@
             </div>
             <div class="card-body  text-center" >
                 
-                <p class="card-text lead" ng-model="word">{{changeVerse(selectedVersion,topic,topics.topics[name].verses[id%topics.topics[name].verses.length].book,topics.topics[name].verses[id%topics.topics[name].verses.length].chapter,topics.topics[name].verses[id%topics.topics[name].verses.length].verse,id%topics.topics[name].verses.length)}}</p>
+               <p class="card-text lead" ng-model="word">{{changeVerse(selectedVersion,topic,id%topics.topics[name].verses.length)}}</p>
+               <a href="#" class="card-link" >{{topics.topics[name].verses[id%topics.topics[name].verses.length].book + " "+ topics.topics[name].verses[id%topics.topics[name].verses.length].chapter + ":"+topics.topics[name].verses[id%topics.topics[name].verses.length].verse}}</a>
+
             </div>
             <div class="card-footer text-center bg-danger">
                 <p>{{(id%topics.topics[name].verses.length)+ " of " + totalverses}}</p>
