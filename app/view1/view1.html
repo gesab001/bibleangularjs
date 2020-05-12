@@ -5,7 +5,7 @@
             <div  class="card-header font-weight-bold bg-warning text-uppercase">
                 <a href="#!/view2" class="card-link">{{name}}</a>
                 <select  ng-model="selectedVersion" ng-change="">
-                    <option ng-repeat="x in versions.choices" value="{{x.code}}">
+                    <option ng-repeat="x in versions.choices" data-image="https://www.countryflags.io/be/shiny/16.png" value="{{x.code}}">
                         {{ x.version }}
                   </option>
                 </select>

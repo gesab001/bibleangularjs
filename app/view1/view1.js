@@ -37,8 +37,16 @@ app.config(['$routeProvider', function($routeProvider) {
     }, 1000);
 
       $scope.changeVerse = function(selectedVersion, cardName,verseid){
-        $scope.word = $scope.topics.topics[cardName].verses[verseid].word[selectedVersion];
-
+//        $scope.word = "";
+//       if (selectedVersion!="kjv"){
+//            $http.get("assets/bibletopics/"+selectedVersion+"-version-"+cardName+"-.json")
+//            .then(function(response) {
+//                $scope.word = response.data.topics[cardName].verses[verseid].word[selectedVersion];
+//
+//            });
+//       }else{
+           $scope.word= $scope.topics.topics[cardName].verses[verseid].word[selectedVersion];
+//       }        
         return $scope.word;
       };
 
