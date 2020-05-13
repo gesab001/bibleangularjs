@@ -59,8 +59,15 @@ app.config(['$routeProvider', function($routeProvider) {
     $http.get("view2/versions/"+translationversion+"-version.json")
           .then(function(response) {
             $scope.translationbible = response.data;
-            $scope.translatedword = $scope.translationbible["version"][$scope.translatebooknumber]["book"][$scope.translatechapter]["chapter"][$scope.translateverse]["verse"];
-            $scope.kjv[bookname][id].word = $scope.translatedword;
+            try{
+                $scope.translatedword = $scope.translationbible["version"][$scope.translatebooknumber]["book"][$scope.translatechapter]["chapter"][$scope.translateverse]["verse"];
+                $scope.kjv[bookname][id].word = $scope.translatedword;
+            }catch(err){
+
+                 $scope.kjv[bookname][id].word = "no translation for this verse";
+            }
+          
+             
           }, function(response) {
                   $scope.translation = response.data || 'Request failed';
        });
