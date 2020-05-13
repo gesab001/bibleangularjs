@@ -22,7 +22,7 @@ app.config(['$routeProvider', function($routeProvider) {
     $scope.booknumbers = "";  
     $scope.id = getCurrentID();
     //get booklist
-    $http.get("view2/booklist2.json")
+    $http.get("assets/booklist2.json")
     .then(function(response) {
       $scope.bibles = response.data.books;
       $scope.versionoptions = response.data.versionoptions;
@@ -56,7 +56,7 @@ app.config(['$routeProvider', function($routeProvider) {
 //    $scope.translatebooknumber = $scope.bibles[bookname];
 //    $scope.translatechapterNumber = $scope.translatecurrentverse.chapter.toString();
 //    $scope.translateverseNumber = $scope.translatecurrentverse.verse.toString();
-    $http.get("view2/versions/"+translationversion+"-version.json")
+    $http.get("assets/versions/"+translationversion+"-version.json")
           .then(function(response) {
             $scope.translationbible = response.data;
             try{

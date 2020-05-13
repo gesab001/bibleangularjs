@@ -10,62 +10,96 @@ app.config(['$routeProvider', function($routeProvider) {
   });
 }])
 
-.controller('View1Ctrl', function($scope, $http, $interval, $filter) {
-    $scope.topics = "";
-    $scope.versions = {"choices":[]};
-    $scope.versionslist = [];
-    $scope.versionoptions = {};
-    $scope.selectedVersion = "kjv";
-
-    $http.get("view1/topics2.json")
-    .then(function(response) {
-      $scope.topics = response.data;
-      $scope.topiclist = response.data.topiclist;
-      $scope.versionslist = response.data.versionslist;
-      $scope.versionoptions = response.data.versionoptions;
-      for (var v of $scope.versionslist){
-          
-          $scope.versions.choices.push({"version": $scope.versionoptions[v], "code": v});
-      }
-      $scope.id = getCurrentID();
-      
+.controller('View1Ctrl', function($scope, $http, $interval) {
+    //$http.defaults.headers.common["api-key"] = "80e4d9935ef1778c43ecd7801bd4ae4c";
+    $scope.kjv = "";
+       $http.get("view1/topics3.json")
+       .then(function(response) {
+         $scope.kjv = response.data;
+       }, function(response) {
+               $scope.kjv = response.data || 'Request failed';
     });
+    $scope.booknumbers = "";  
+    $scope.id = getCurrentID();
+    //get booklist
+    $http.get("assets/booklist2.json")
+    .then(function(response) {
+      $scope.bibles = response.data.books;
+      $scope.versionoptions = response.data.versionoptions;
+      $scope.selectedVersion = "kjv";
+         //get kjv bible
+        
+    }, function(response) {
+            $scope.bibles = response.data.books || 'Request failed';
+    });
+    
+ 
+    $scope.getWord = function (book, id){
+        $scope.totalverses = $scope.kjv[book].length;
+        $scope.currentID = id%$scope.totalverses;
+        $scope.currentVerse = $scope.kjv[book][$scope.currentID];
+        $scope.chapterNumber = $scope.currentVerse.chapter;
+        $scope.verseNumber = $scope.currentVerse.verse;
+        return $scope.currentVerse.word;
+    };
+   $scope.translate = function(translationversion, title, bookname, id){
+      
+    $scope.translatebook = $scope.kjv[title];
+    $scope.translatetotalverses = $scope.translatebook.length;
+    $scope.translatecurrentid = id;
+    $scope.translatecurrentVerse = $scope.translatebook[$scope.translatecurrentid];
+    $scope.translatebooknumber = $scope.bibles[bookname];
+    $scope.translatechapter = $scope.translatecurrentVerse.chapter;
+    $scope.translateverse = $scope.translatecurrentVerse.verse;
+//
+    $http.get("assets/versions/"+translationversion+"-version.json")
+          .then(function(response) {
+            $scope.translationbible = response.data;
+            try{
+                $scope.translatedword = $scope.translationbible["version"][$scope.translatebooknumber]["book"][$scope.translatechapter]["chapter"][$scope.translateverse]["verse"];
+                        $scope.kjv[title][id].word = $scope.translatedword;
+
+            }catch(err){
+
+            }
+          
+             
+          }, function(response) {
+                  $scope.translation = response.data || 'Request failed';
+       });
+//        
+         //get kjv bible
+        
+  
+   };
     $scope.theTime = new Date().toLocaleTimeString();
     $interval(function () {
         $scope.theTime = new Date();
-        $scope.id = getCurrentID()
+        $scope.id = getCurrentID();
     }, 1000);
-
-      $scope.changeVerse = function(selectedVersion, cardName,verseid){
-//        $scope.word = "";
-//       if (selectedVersion!="kjv"){
-//            $http.get("assets/bibletopics/"+selectedVersion+"-version-"+cardName+"-.json")
-//            .then(function(response) {
-//                $scope.word = response.data.topics[cardName].verses[verseid].word[selectedVersion];
+    //get versions list
+//    $http.get("view1/versions_json.json")
+//    .then(function(response) {
 //
-//            });
-//       }else{
-           $scope.word= $scope.topics.topics[cardName].verses[verseid].word[selectedVersion];
-//       }        
-        return $scope.word;
-      };
-
+//      $scope.versionslist = response.data.versionslist;
+//      $scope.versionoptions = response.data.versionoptions;
+//      for (var v of $scope.versionslist){
+//          
+//          $scope.versions.choices.push({"version": $scope.versionoptions[v], "code": v});
+//      }
+//      $scope.id = getCurrentID();
+//      
+//    });
+//    $scope.theTime = new Date().toLocaleTimeString();
+//    $interval(function () {
+//        $scope.theTime = new Date();
+//        $scope.id = getCurrentID()
+//    }, 1000);
+    
+ 
+    
+    
 }); 
-
-//
-//
-//function getXmlVerse(text, bookNumber, chapterNumber, verseNumber){ 
-//    var parser = new DOMParser();
-//    var xmlDoc = parser.parseFromString(text.data,"text/xml");
-////    var bookNumber = 1;
-////    var chapterNumber = 1;
-////    var verseNumber = 1;
-//    var books = xmlDoc.getElementsByTagName("BIBLEBOOK");
-//    var chapters = books[bookNumber].getElementsByTagName("CHAPTER");
-//    var verses = chapters[chapterNumber].getElementsByTagName("VERS");
-//    var word = verses[verseNumber].childNodes[0].nodeValue;
-//    return word;
-//}
 
 function getCurrentID(){
 
@@ -76,4 +110,3 @@ function getCurrentID(){
     var currentID=minutesDifference;
     return currentID;
 }
-
