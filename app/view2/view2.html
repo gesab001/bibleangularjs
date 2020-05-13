@@ -5,19 +5,24 @@
             <div  class="card-header font-weight-bold bg-warning text-uppercase">
                 <a href="#!/view2" class="card-link">{{bookname}}</a>
                 <select  ng-model="selectedVersion" ng-change="">
-                    <option ng-repeat="(code, name) in versionoptions" data-image="https://www.countryflags.io/be/shiny/16.png" value="{{code}}">
+                    <option ng-repeat="(code, name) in versionoptions" value="{{code}}">
                         {{ name}}
                   </option>
                 </select>
+                                                  <button ng-click="translate(bookname, id)">trans</button>
+
             </div>
             <div class="card-body  text-center" >
-                
-               <p class="card-text lead" ng-model="word">{{getWord(bookname, id)}}</p>
+               <p class="card-text lead" >{{translation}}</p>
+
+               <p class="card-text lead" >{{getWord(bookname, id)}}</p>
+
                <a href="#" class="card-link" >{{bookname + " " + chapterNumber + ":" + verseNumber}}</a>
 
             </div>
             <div class="card-footer text-center bg-danger">
                 <p>{{(id%totalverses)+ " of " + totalverses}}</p>
+
                 <div class="progress">
                    <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{((theTime | date : 'ss')/60)*100+'%'}}"></div>
                 </div>

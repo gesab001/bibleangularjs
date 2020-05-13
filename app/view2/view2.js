@@ -12,7 +12,8 @@ app.config(['$routeProvider', function($routeProvider) {
 
 .controller('View2Ctrl', function($scope, $http, $interval) {
     //$http.defaults.headers.common["api-key"] = "80e4d9935ef1778c43ecd7801bd4ae4c";
-    $scope.kjv = "";  
+    $scope.booknumbers = "";  
+    $scope.kjv = "";
     $scope.id = getCurrentID();
     //get booklist
     $http.get("view2/booklist2.json")
@@ -40,9 +41,32 @@ app.config(['$routeProvider', function($routeProvider) {
         $scope.verseNumber = $scope.currentVerse.verse;
         return $scope.currentVerse.word;
     };
-    $scope.getTotalVerses = function (){
-        return 1;
-    }
+   $scope.translate = function(bookname, id){
+      
+    $scope.translatebook = $scope.kjv[bookname];
+    $scope.translatetotalverses = $scope.translatebook.length;
+    $scope.translatecurrentid = id%$scope.translatetotalverses;
+    $scope.translatecurrentVerse = $scope.translatebook[$scope.translatecurrentid];
+    $scope.translatebooknumber = $scope.bibles[bookname];
+    $scope.translatechapter = $scope.translatecurrentVerse.chapter;
+    $scope.translateverse = $scope.translatecurrentVerse.verse;
+
+       //    
+//    $scope.translatebooknumber = $scope.bibles[bookname];
+//    $scope.translatechapterNumber = $scope.translatecurrentverse.chapter.toString();
+//    $scope.translateverseNumber = $scope.translatecurrentverse.verse.toString();
+    $http.get("view2/versions/tagalog-version.json")
+          .then(function(response) {
+            $scope.translationbible = response.data;
+            $scope.translation = $scope.translationbible["version"][$scope.translatebooknumber]["book"][$scope.translatechapter]["chapter"][$scope.translateverse]["verse"];
+          }, function(response) {
+                  $scope.translation = response.data || 'Request failed';
+       });
+        
+         //get kjv bible
+        
+  
+   };
     $scope.theTime = new Date().toLocaleTimeString();
     $interval(function () {
         $scope.theTime = new Date();
